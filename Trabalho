@@ -1,0 +1,72 @@
+CREATE DATABASE imobiliária;
+use imobiliária;
+
+CREATE TABLE categoria(
+    codigo int(3) PRIMARY KEY AUTO_INCREMENT,
+    nome char(30) NOT null);
+    
+INSERT INTO categoria VALUES(0, 'casa'),
+(0, 'apartamento'),
+(0, 'sala comercial'),
+(0, 'terreno');
+
+CREATE TABLE imoveis(
+    id int(3) PRIMARY KEY AUTO_INCREMENT,
+    tipo char(10) NOT null,
+    disponivel char(3) NOT null,
+    codcat int(3),
+    FOREIGN KEY (codcat) REFERENCES categoria(codigo)
+);
+    
+CREATE TABLE casa(
+    codcat int(3),
+	FOREIGN KEY (codcat) REFERENCES categoria(codigo),
+    quantidade_de_quartos int(5) NOT null,
+    quantidade_de_suites int(5) NOT null,
+    quantidade_de_sala_estar int(5) NOT null,
+    quantidade_de_sala_jantar int(5) NOT null,
+    vagas_garagem int(5) NOT null,
+    área int(5) NOT null,
+    armário_embutido char(3) NOT null,
+    descrição char(50)
+);
+
+CREATE TABLE apartamento(
+    codcat int(3),
+	FOREIGN KEY (codcat) REFERENCES categoria(codigo),
+    quantidade_quartos int(5) NOT null,
+    quantidade_suites int(5) NOT null,
+    quantidade_sala_estar int(5) NOT null,
+    quantidade_sala_jantar int(5) NOT null,
+    vagas_garagem int(5) NOT null,
+    área int(5) NOT null,
+    armário_embutido char(3) NOT null,
+    descrição char(50),
+    andar int(3) NOT null,
+    valor_condomínio int(5) NOT null,
+    portaria_24 char(3) NOT null
+);
+
+CREATE TABLE sala_comercial(
+    codcat int(3),
+	FOREIGN KEY (codcat) REFERENCES categoria(codigo),
+    área int(5) NOT null,
+    quantidade_banheiro int(5) NOT null,
+    quantidade_cômodos int(5) NOT null
+);
+
+CREATE TABLE terreno(
+    codcat int(3),
+	FOREIGN KEY (codcat) REFERENCES categoria(codigo),
+    área int(5) NOT null,
+    largura int(5) NOT null,
+    comprimento int(5) NOT null,
+    terreno char(20) NOT null
+);
+   
+CREATE TABLE fotos(
+    id int(3) PRIMARY KEY AUTO_INCREMENT,
+    arquivo char(20) NOT null,
+    id_imoveis int(3),
+    FOREIGN KEY (id_imoveis) REFERENCES imoveis(id)
+); 
