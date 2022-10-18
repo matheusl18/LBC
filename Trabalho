@@ -14,11 +14,35 @@ CREATE TABLE imoveis(
     id int(3) PRIMARY KEY AUTO_INCREMENT,
     tipo char(10) NOT null,
     disponivel char(3) NOT null,
+    endereço char(60) NOT null,
+    valor int(5) NOT null,
+    valor_aluguel int(5) NOT null,
+    valor_venda int(5) NOT null,
     codcat int(3),
     FOREIGN KEY (codcat) REFERENCES categoria(codigo)
 );
+
+INSERT INTO imoveis VALUES(0, 'venda', 'sim', 'Rua das Flores, n531, Bairro das Maravilhas', 290.000, 0, 0, 1),
+(0, 'venda', 'não', 'Rua Júliu Silva, n789, Bairro das Maravilhas', 120.000, 0, 1.000, 1),
+(0, 'aluguel', 'sim', 'Av. Campos Sales, n450, Bairro Tirol', 3.500, 200, 0, 1),
+(0, 'aluguel', 'não', 'Rua Pieha, n420, Bairro Patinho Feio', 1.000, 200, 0, 1),
+(0, 'venda', 'sim', 'Rua Limoeiro, n257, Bairro Júlio Bileu', 500.000, 0, 0, 2),
+(0, 'venda', 'não', 'Av. Prudente de Moraes, n81, Bairro Petrópolis', 420.000, 0, 4.200, 2),
+(0, 'aluguel', 'sim', 'Rua do Robertão, n69, Bairro dos Bovino', 8.000, 0, 0, 2),
+(0, 'aluguel', 'não', 'Rua Bruno da Silva, n1084, Bairro Barro Vermelho', 2.000, 300, 0, 2),
+(0, 'venda', 'sim', 'Rua Roberto Freire, n236, Bairro da Luz', 1.380.000, 0, 0, 3),
+(0, 'venda', 'não', 'Av. Castelo Branco, n305, Bairro das Travas', 6.000.000, 0, 60.000, 3),
+(0, 'aluguel', 'sim', 'Rua Peixeira, n22, Bairro dos Mares', 9.700, 0, 0, 3),
+(0, 'aluguel', 'não', 'Rua dos Tucanos, n167, Bairro das Aves', 10.000, 300, 0, 3),
+(0, 'venda', 'sim', 'Rua Maxaranguape, n150, Bairro Tirol', 630.000, 0, 0, 4),
+(0, 'venda', 'não', 'Rua Brigadeiro, n708, Bairro dos Doces', 240.000, 0, 1.400, 4),
+(0, 'aluguel', 'sim', 'Rua Segundo Turno, n13, Bairro Vermelho', 130.000, 0, 0, 4),
+(0, 'aluguel', 'não', 'Rua Uno, n1, Bairro Retorno', 4.000, 200, 0, 4)
+;
     
 CREATE TABLE casa(
+    id_imoveis int(3) PRIMARY KEY,
+    FOREIGN KEY (id_imoveis) REFERENCES imoveis(id),
     codcat int(3),
 	FOREIGN KEY (codcat) REFERENCES categoria(codigo),
     quantidade_de_quartos int(5) NOT null,
@@ -31,7 +55,10 @@ CREATE TABLE casa(
     descrição char(50)
 );
 
+
 CREATE TABLE apartamento(
+    id_imoveis int(3) PRIMARY KEY,
+    FOREIGN KEY (id_imoveis) REFERENCES imoveis(id),
     codcat int(3),
 	FOREIGN KEY (codcat) REFERENCES categoria(codigo),
     quantidade_quartos int(5) NOT null,
@@ -48,6 +75,8 @@ CREATE TABLE apartamento(
 );
 
 CREATE TABLE sala_comercial(
+    id_imoveis int(3) PRIMARY KEY,
+    FOREIGN KEY (id_imoveis) REFERENCES imoveis(id),
     codcat int(3),
 	FOREIGN KEY (codcat) REFERENCES categoria(codigo),
     área int(5) NOT null,
@@ -56,6 +85,8 @@ CREATE TABLE sala_comercial(
 );
 
 CREATE TABLE terreno(
+    id_imoveis int(3) PRIMARY KEY,
+    FOREIGN KEY (id_imoveis) REFERENCES imoveis(id),
     codcat int(3),
 	FOREIGN KEY (codcat) REFERENCES categoria(codigo),
     área int(5) NOT null,
